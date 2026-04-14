@@ -6,35 +6,57 @@ import heroImage from "../assets/images/Klira-hero.png";
 ---
 
 <Layout>
-	<main>
-		<section class="py-20 flex flex-col items-center justify-center gap-10">
-			<div class="flex flex-col items-center justify-center gap-10">
-				<div class="flex flex-col items-center justify-center gap-8">
-					<h1 class="text-6xl text-center text-zinc-900">Your team's capacity, <br>on demand.</h1>
-					<p class="text-center text-zinc-500 text-xl">Klira gives you and your teams a clear view of workload and capacity, <br>so every decision is backed by real data, not gut feel.</p>
+	<div>
+		<section class="flex flex-col items-center justify-center gap-8 py-12 md:gap-10 md:py-20">
+			<div class="flex flex-col items-center justify-center gap-8 md:gap-10">
+				<div class="flex flex-col items-center justify-center gap-6 md:gap-8">
+					<h1 class="text-balance text-center text-4xl leading-tight text-zinc-900 sm:text-5xl md:text-6xl">
+						Your team's capacity, <br class="hidden md:inline" /> on demand.
+					</h1>
+					<p class="max-w-2xl text-center text-lg leading-relaxed text-zinc-500 md:text-xl">
+						Klira gives you and your teams a clear view of workload and capacity,
+						<br class="hidden md:inline" />
+						so every decision is backed by real data, not gut feel.
+					</p>
 				</div>
-				<a href="mailto:hello@acalvet.com" class="hidden md:block text-base font-medium text-white bg-indigo-600 rounded-full px-[2rem] py-[1rem] hover:bg-indigo-500">Book a demo</a>
+				<a
+					href="mailto:hello@acalvet.com"
+					class="inline-flex rounded-full bg-indigo-600 px-8 py-4 text-base font-medium text-white hover:bg-indigo-500"
+				>
+					Book a demo
+				</a>
 			</div>
-			<div>
+			<div class="mx-auto w-full min-w-0 max-w-full md:max-w-5xl">
 				<img
 					src={heroImage.src}
 					width={heroImage.width}
 					height={heroImage.height}
 					alt="Klira"
-					class="w-5xl rounded-2xl"
+					class="h-auto w-full rounded-2xl"
 					loading="eager"
 					decoding="async"
 				/>
 			</div>
 		</section>
-		<section id="introduction" class="w-full max-w-7xl mx-auto px-4 py-16 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-top">
-			<h2 class="text-4xl text-zinc-900 text-left">Know what your team can actually <br>handle before you commit.</h2>
+		<section
+			id="introduction"
+			class="mx-auto grid w-full max-w-7xl grid-cols-1 items-start gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-16"
+		>
+			<h2 class="text-left text-3xl leading-tight text-zinc-900 md:text-4xl">
+				Know what your team can actually <br class="hidden md:inline" /> handle before you commit.
+			</h2>
 			<div class="flex flex-col items-start justify-center gap-4">
-				<p class="text-zinc-500 text-xl">Service teams make commitment decisions every day. <br>Rarely with the full picture.</p>
-				<p class="text-zinc-800 text-xl">Klira makes that picture available instantly, <br>before the decision is made.</p>
+				<p class="text-lg leading-relaxed text-zinc-500 md:text-xl">
+					Service teams make commitment decisions every day. <br class="hidden md:inline" />
+					Rarely with the full picture.
+				</p>
+				<p class="text-lg leading-relaxed text-zinc-800 md:text-xl">
+					Klira makes that picture available instantly, <br class="hidden md:inline" />
+					before the decision is made.
+				</p>
 			</div>
 		</section>
 		<HowItWorks />
 		<JustAskKlya />
-	</main>
+	</div>
 </Layout>

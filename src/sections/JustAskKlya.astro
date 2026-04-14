@@ -34,14 +34,14 @@ const panelsJson = JSON.stringify(panels);
 		<h2 id="just-ask-klya-heading" class="text-3xl text-zinc-900 md:text-4xl">
 			Just Ask Klira.
 		</h2>
-		<p class="text-md text-zinc-500 md:text-xl">
-			Ask anything, anytime, and get an instant <br>ead on where your team stands
+		<p class="text-base text-zinc-500 md:text-xl">
+			Ask anything, anytime, and get an instant <br>read on where your team stands
 		</p>
 	</div>
 
 	<div class="mt-12 md:mt-16 grid grid-cols-1 gap-10 md:grid-cols-3 md:items-center md:gap-12 lg:gap-16">
-		<div class="flex flex-col gap-20 md:col-span-1">
-			<div class="relative flex flex-col gap-12" data-just-ask-items>
+		<div class="flex flex-col gap-10 md:col-span-1 md:gap-20">
+			<div class="relative flex flex-col gap-8 md:gap-12" data-just-ask-items>
 				<div
 					data-just-ask-indicator
 					class="pointer-events-none absolute left-0 z-10 w-0.5 rounded-full bg-indigo-600 will-change-[top,height]"
@@ -98,7 +98,7 @@ const panelsJson = JSON.stringify(panels);
 					aria-hidden="true"
 				/>
 				<div
-					class="pointer-events-none absolute bottom-4 right-4 z-20 origin-bottom-right scale-[0.64] rounded-full bg-white/85 p-1.5 shadow-md ring-1 ring-zinc-900/10 backdrop-blur-sm"
+					class="pointer-events-none absolute bottom-3 right-3 z-20 origin-bottom-right scale-[0.52] rounded-full bg-white/85 p-1.5 shadow-md ring-1 ring-zinc-900/10 backdrop-blur-sm md:bottom-4 md:right-4 md:scale-[0.64]"
 					role="progressbar"
 					aria-valuemin="0"
 					aria-valuemax="100"

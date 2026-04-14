@@ -8,7 +8,7 @@ import Logo from "../components/logo.astro";
     <Logo pathname={Astro.url.pathname} />
 
     <!-- Nav (desktop only) -->
-    <nav class="navbar hidden md:flex flex-row items-center text-base hover:text-zinc-400">
+    <nav class="navbar hidden md:flex flex-row items-center text-base hover:text-zinc-400" aria-label="Primary">
       <a class="p-4 font-medium" href="#onboarding">How it works</a>
       <a class="p-4 font-medium" href="#usecases">Use cases</a>
       <a class="p-4 font-medium" href="#product">Product</a>
@@ -22,11 +22,130 @@ import Logo from "../components/logo.astro";
     <!-- Hamburger (mobile only) -->
     <button
       id="menu-toggle"
-      aria-label="Toggle menu"
-      class="md:hidden relative w-6 h-5 z-50 mr-1">
-      <span class="absolute top-0 left-0 w-6 h-[2px] bg-black dark:bg-zinc-50 transition-all duration-300 ease-in-out"></span>
-      <span class="absolute top-[8px] left-0 w-6 h-[2px] bg-black dark:bg-zinc-50 transition-all duration-300 ease-in-out"></span>
-      <span class="absolute top-[16px] left-0 w-6 h-[2px] bg-black dark:bg-zinc-50 transition-all duration-300 ease-in-out"></span>
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      class="md:hidden relative z-50 -mr-1 inline-flex h-11 w-11 items-center justify-center rounded-md text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+      <span
+        data-menu-icon
+        class="relative block h-5 w-6"
+      >
+        <span class="absolute top-0 left-0 block h-0.5 w-6 origin-center bg-zinc-900 transition-transform duration-300 ease-out dark:bg-zinc-50"></span>
+        <span class="absolute top-[9px] left-0 block h-0.5 w-6 bg-zinc-900 transition-opacity duration-300 ease-out dark:bg-zinc-50"></span>
+        <span class="absolute top-[18px] left-0 block h-0.5 w-6 origin-center bg-zinc-900 transition-transform duration-300 ease-out dark:bg-zinc-50"></span>
+      </span>
     </button>
   </div>
 </header>
+
+<!-- Mobile nav (below md only) -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-40 hidden md:hidden"
+  aria-hidden="true"
+  data-mobile-nav
+>
+  <button
+    type="button"
+    class="absolute inset-0 bg-zinc-900/40 backdrop-blur-[2px]"
+    aria-label="Close menu"
+    data-mobile-nav-backdrop
+  />
+  <nav
+    class="absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-zinc-200 bg-white px-6 pb-10 pt-[calc(5rem+env(safe-area-inset-top))] shadow-xl"
+    aria-label="Primary"
+    data-mobile-nav-panel
+  >
+    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#onboarding" data-mobile-nav-link>
+      How it works
+    </a>
+    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#usecases" data-mobile-nav-link>
+      Use cases
+    </a>
+    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#product" data-mobile-nav-link>
+      Product
+    </a>
+    <a
+      href="mailto:hello@acalvet.com"
+      class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-4 py-3 text-base font-medium text-white hover:bg-indigo-500"
+    >
+      Book a demo
+    </a>
+  </nav>
+</div>
+
+<script>
+	let mobileNavAbort: AbortController | undefined;
+
+	function initMobileNav() {
+		const toggleEl = document.getElementById("menu-toggle");
+		const panelEl = document.querySelector<HTMLElement>("[data-mobile-nav]");
+		const backdrop = document.querySelector<HTMLElement>("[data-mobile-nav-backdrop]");
+		const links = document.querySelectorAll<HTMLAnchorElement>("[data-mobile-nav-link]");
+		const icon = document.querySelector<HTMLElement>("[data-menu-icon]");
+		if (!toggleEl || !panelEl || !backdrop) return;
+
+		const toggle = toggleEl;
+		const panel = panelEl;
+
+		mobileNavAbort?.abort();
+		mobileNavAbort = new AbortController();
+		const { signal } = mobileNavAbort;
+
+		const bars = icon?.querySelectorAll(":scope > span") as NodeListOf<HTMLSpanElement> | undefined;
+
+		function setOpen(open: boolean) {
+			toggle.setAttribute("aria-expanded", open ? "true" : "false");
+			toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+			panel.classList.toggle("hidden", !open);
+			panel.setAttribute("aria-hidden", open ? "false" : "true");
+			document.body.classList.toggle("overflow-hidden", open);
+
+			if (bars && bars.length >= 3) {
+				bars[0].classList.toggle("translate-y-[9px]", open);
+				bars[0].classList.toggle("rotate-45", open);
+				bars[1].classList.toggle("opacity-0", open);
+				bars[2].classList.toggle("-translate-y-[9px]", open);
+				bars[2].classList.toggle("-rotate-45", open);
+			}
+		}
+
+		function close() {
+			setOpen(false);
+		}
+
+		toggle.addEventListener(
+			"click",
+			() => {
+				const open = toggle.getAttribute("aria-expanded") === "true";
+				setOpen(!open);
+			},
+			{ signal },
+		);
+
+		backdrop.addEventListener("click", close, { signal });
+
+		links.forEach((a) => a.addEventListener("click", close, { signal }));
+
+		document.addEventListener(
+			"keydown",
+			(e) => {
+				if (e.key === "Escape") close();
+			},
+			{ signal },
+		);
+
+		window.addEventListener(
+			"resize",
+			() => {
+				if (window.matchMedia("(min-width: 768px)").matches) close();
+			},
+			{ signal },
+		);
+	}
+
+	initMobileNav();
+	document.addEventListener("astro:page-load", initMobileNav);
+</script>
