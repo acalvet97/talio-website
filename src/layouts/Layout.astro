@@ -33,14 +33,78 @@ const { title = "Klira" } = Astro.props;
 		<script>
 			import { animate } from "motion";
 
-			const el = document.querySelector("[data-motion-hero]");
-			if (el) {
-				animate(
-					el,
-					{ opacity: [0, 1], y: [12, 0] },
-					{ duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-				);
+			const HERO_DURATION_MS = 950;
+
+			function nextFrame(): Promise<void> {
+				return new Promise((resolve) => {
+					requestAnimationFrame(() => {
+						requestAnimationFrame(() => resolve());
+					});
+				});
 			}
+
+			async function waitForHeroReady(el: HTMLElement) {
+				const img = el.querySelector("img");
+				if (img instanceof HTMLImageElement) {
+					if (!img.complete) {
+						await new Promise<void>((resolve) => {
+							img.addEventListener("load", () => resolve(), { once: true });
+							img.addEventListener("error", () => resolve(), { once: true });
+						});
+					}
+					try {
+						await img.decode();
+					} catch {
+						/* decode unsupported or failed */
+					}
+				}
+
+				/* Cap font wait so Typekit cannot delay the entrance too long */
+				try {
+					await Promise.race([
+						document.fonts.ready,
+						new Promise<void>((r) => setTimeout(r, 180)),
+					]);
+				} catch {
+					/* ignore */
+				}
+
+				await nextFrame();
+			}
+
+			function runHeroEntrance() {
+				const el = document.querySelector<HTMLElement>("[data-motion-hero]");
+				if (!el || el.dataset.motionHeroLock) return;
+				el.dataset.motionHeroLock = "1";
+
+				void (async () => {
+					if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+						el.style.opacity = "1";
+						el.style.transform = "none";
+						return;
+					}
+
+					await waitForHeroReady(el);
+
+					el.style.willChange = "transform, opacity";
+
+					animate(
+						el,
+						{ opacity: [0, 1], y: [10, 0] },
+						{
+							duration: HERO_DURATION_MS / 1000,
+							ease: [0.22, 1, 0.36, 1],
+						},
+					);
+
+					window.setTimeout(() => {
+						el.style.willChange = "auto";
+					}, HERO_DURATION_MS + 80);
+				})();
+			}
+
+			runHeroEntrance();
+			document.addEventListener("astro:page-load", runHeroEntrance);
 		</script>
 	</body>
 </html>

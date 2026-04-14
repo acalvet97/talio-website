@@ -26,7 +26,10 @@ import heroImage from "../assets/images/Klira-hero.png";
 					Book a demo
 				</a>
 			</div>
-			<div class="mx-auto w-full min-w-0 max-w-full md:max-w-5xl">
+			<div
+				class="mx-auto w-full min-w-0 max-w-full translate-y-[10px] opacity-0 md:max-w-5xl"
+				data-motion-hero
+			>
 				<img
 					src={heroImage.src}
 					width={heroImage.width}
@@ -35,6 +38,7 @@ import heroImage from "../assets/images/Klira-hero.png";
 					class="h-auto w-full rounded-lg md:rounded-2xl"
 					loading="eager"
 					decoding="async"
+					fetchpriority="high"
 				/>
 			</div>
 		</section>
