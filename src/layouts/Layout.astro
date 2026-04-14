@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Header from "../sections/Header.astro";
+import PreFooterCta from "../sections/PreFooterCta.astro";
 import Footer from "../sections/Footer.astro";
 
 interface Props {
@@ -25,6 +26,7 @@ const { title = "Klira" } = Astro.props;
 			<main class="flex w-full flex-1 flex-col items-stretch justify-center px-4 md:px-8">
 				<slot />
 			</main>
+			<PreFooterCta />
 			<Footer />
 		</div>
 		<script>
