@@ -20,36 +20,45 @@ const steps = [
 
 <section
 	id="onboarding"
-	class="w-full max-w-7xl mx-auto px-4 py-8 md:py-16"
+	class="w-full py-8 md:py-16"
 	aria-labelledby="how-it-works-heading"
 >
-	<div class="flex flex-col items-start justify-center gap-2 text-left">
-		<p class="text-sm font-medium text-indigo-600">How it works</p>
-		<h2 id="how-it-works-heading" class="text-3xl text-zinc-900 text-left md:text-4xl">
-			Up and running in minutes
-		</h2>
+	<div class="mx-auto max-w-7xl px-4">
+		<div class="flex flex-col items-start justify-center gap-2 text-left">
+			<p class="text-sm font-medium text-indigo-600">How it works</p>
+			<h2 id="how-it-works-heading" class="text-3xl text-zinc-900 text-left md:text-4xl">
+				Up and running in minutes
+			</h2>
+		</div>
 	</div>
 
-	<div class="swiper how-it-works-swiper mt-10 md:mt-12">
-		<div class="swiper-wrapper">
-			{
-				steps.map((step, i) => (
-					<div class="swiper-slide h-auto">
-						<article class="flex h-full flex-col gap-5">
-							<div
-								class="aspect-4/5 w-full shrink-0 rounded-2xl bg-zinc-50"
-								aria-hidden="true"
-							/>
-							<div class="flex flex-col gap-2">
-								<h3 class="text-lg text-zinc-900">{step.title}</h3>
-								<p class="text-base text-zinc-500">{step.body}</p>
-							</div>
-						</article>
-					</div>
-				))
-			}
+	<!-- Mobile only: full-bleed breakout. md+: same mx-auto max-w-7xl px-4 as heading (no w-screen / calc on desktop). -->
+	<div
+		class="mt-10 w-full max-w-7xl px-4 md:mt-12 md:mx-auto max-md:ml-[calc(50%-50vw)] max-md:w-screen max-md:max-w-[100vw] max-md:px-0"
+	>
+		<div class="swiper how-it-works-swiper">
+			<div class="swiper-wrapper">
+				{
+					steps.map((step, i) => (
+						<div class="swiper-slide h-auto">
+							<article class="flex h-full flex-col gap-5">
+								<div
+									class="aspect-4/5 w-full shrink-0 rounded-2xl bg-zinc-50"
+									aria-hidden="true"
+								/>
+								<div class="flex flex-col gap-2 md:px-0">
+									<h3 class="text-lg text-zinc-900">{step.title}</h3>
+									<p class="text-base text-zinc-500">{step.body}</p>
+								</div>
+							</article>
+						</div>
+					))
+				}
+			</div>
+			<div
+				class="how-it-works-pagination swiper-pagination relative! mt-8! md:mt-0! md:hidden!"
+			/>
 		</div>
-		<div class="how-it-works-pagination swiper-pagination relative! mt-8! md:mt-0! md:hidden!" />
 	</div>
 </section>
 
@@ -60,6 +69,16 @@ const steps = [
 	}
 	.how-it-works-swiper .swiper-pagination-bullet-active {
 		background: rgb(79 70 229);
+	}
+
+	/*
+	 * Mobile: match content column width (main px-4 + max-w-7xl inner px-4 = 4rem total inset).
+	 * centeredSlides + this width centers the active slide on the screen with equal peek of neighbours.
+	 */
+	@media (max-width: 767px) {
+		.how-it-works-swiper .swiper-slide {
+			width: calc(100vw - 4rem);
+		}
 	}
 </style>
 
@@ -76,8 +95,10 @@ const steps = [
 
 		new Swiper(el, {
 			modules: [Pagination],
-			slidesPerView: 1,
-			spaceBetween: 20,
+			// Mobile: active slide centered in viewport; width matches site content (see CSS)
+			centeredSlides: true,
+			slidesPerView: "auto",
+			spaceBetween: 16,
 			pagination: {
 				el: paginationEl,
 				clickable: true,
@@ -85,6 +106,7 @@ const steps = [
 			watchOverflow: true,
 			breakpoints: {
 				768: {
+					centeredSlides: false,
 					slidesPerView: 3,
 					spaceBetween: 20,
 					pagination: { enabled: false },
