@@ -8,8 +8,19 @@
 }
 
 @layer base {
+	/*
+	 * Match sticky header (max-h-[80px]) so in-page anchors land with the section
+	 * fully visible below the bar. Safe area covers notched devices.
+	 */
 	html {
 		@apply font-sans;
+		scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
 	}
 
 	h1,
