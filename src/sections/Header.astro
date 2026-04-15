@@ -2,20 +2,20 @@
 import Logo from "../components/logo.astro";
 ---
 
-<header class="sticky top-0 z-50 max-h-[80px] bg-white border-b border-zinc-200 px-4 md:px-8">
+<header class="sticky top-0 z-50 max-h-[80px] bg-white border-b border-slate-200 px-4 md:px-8">
   <div class="max-w-7xl px-4 py-1 mx-auto flex items-center justify-between">
     <!-- Logo -->
     <Logo pathname={Astro.url.pathname} />
 
     <!-- Nav (desktop only) -->
-    <nav class="navbar hidden md:flex flex-row items-center text-base hover:text-zinc-400" aria-label="Primary">
-      <a class="p-4 font-medium text-zinc-600 transition-colors hover:text-zinc-800" href="#onboarding">How it works</a>
-      <a class="p-4 font-medium text-zinc-600 transition-colors hover:text-zinc-800" href="#usecases">Use cases</a>
+    <nav class="navbar hidden md:flex flex-row items-center text-base hover:text-slate-400" aria-label="Primary">
+      <a class="p-4 font-medium text-slate-600 transition-colors hover:text-slate-800" href="#onboarding">Cómo funciona</a>
+      <a class="p-4 font-medium text-slate-600 transition-colors hover:text-slate-800" href="#usecases">Casos de uso</a>
     </nav>
 
-    <!-- Book a demo (desktop only) -->
-    <a href="mailto:hello@acalvet.com" class="hidden md:block text-base font-medium text-white bg-indigo-600 rounded-full px-4 py-2 hover:bg-indigo-500">
-      Book a demo
+    <!-- Solicitar demo (desktop only) -->
+    <a href="mailto:hello@acalvet.com" class="hidden md:block text-base font-medium text-white bg-emerald-600 rounded-full px-4 py-2 hover:bg-emerald-500">
+      Solicitar demo
     </a>
 
     <!-- Hamburger (mobile only) -->
@@ -25,15 +25,15 @@ import Logo from "../components/logo.astro";
       aria-label="Open menu"
       aria-expanded="false"
       aria-controls="mobile-nav"
-      class="md:hidden relative z-50 -mr-1 inline-flex h-11 w-11 items-center justify-center rounded-md text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      class="md:hidden relative z-50 -mr-1 inline-flex h-11 w-11 items-center justify-center rounded-md text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
     >
       <span
         data-menu-icon
         class="relative block h-5 w-6"
       >
-        <span class="absolute top-0 left-0 block h-0.5 w-6 origin-center bg-zinc-900 transition-transform duration-300 ease-out dark:bg-zinc-50"></span>
-        <span class="absolute top-[9px] left-0 block h-0.5 w-6 bg-zinc-900 transition-opacity duration-300 ease-out dark:bg-zinc-50"></span>
-        <span class="absolute top-[18px] left-0 block h-0.5 w-6 origin-center bg-zinc-900 transition-transform duration-300 ease-out dark:bg-zinc-50"></span>
+        <span class="absolute top-0 left-0 block h-0.5 w-6 origin-center bg-slate-900 transition-transform duration-300 ease-out dark:bg-slate-50"></span>
+        <span class="absolute top-[9px] left-0 block h-0.5 w-6 bg-slate-900 transition-opacity duration-300 ease-out dark:bg-slate-50"></span>
+        <span class="absolute top-[18px] left-0 block h-0.5 w-6 origin-center bg-slate-900 transition-transform duration-300 ease-out dark:bg-slate-50"></span>
       </span>
     </button>
   </div>
@@ -48,29 +48,29 @@ import Logo from "../components/logo.astro";
 >
   <button
     type="button"
-    class="absolute inset-0 bg-zinc-900/40 backdrop-blur-[2px]"
+    class="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"
     aria-label="Close menu"
     data-mobile-nav-backdrop
   />
   <nav
-    class="absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-zinc-200 bg-white px-6 pb-10 pt-[calc(5rem+env(safe-area-inset-top))] shadow-xl"
+    class="absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-slate-200 bg-white px-6 pb-10 pt-[calc(5rem+env(safe-area-inset-top))] shadow-xl"
     aria-label="Primary"
     data-mobile-nav-panel
   >
-    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#onboarding" data-mobile-nav-link>
+    <a class="border-b border-slate-100 py-4 text-base font-medium text-slate-900" href="#onboarding" data-mobile-nav-link>
       How it works
     </a>
-    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#usecases" data-mobile-nav-link>
+    <a class="border-b border-slate-100 py-4 text-base font-medium text-slate-900" href="#usecases" data-mobile-nav-link>
       Use cases
     </a>
-    <a class="border-b border-zinc-100 py-4 text-base font-medium text-zinc-900" href="#product" data-mobile-nav-link>
+    <a class="border-b border-slate-100 py-4 text-base font-medium text-slate-900" href="#product" data-mobile-nav-link>
       Product
     </a>
     <a
       href="mailto:hello@acalvet.com"
-      class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-4 py-3 text-base font-medium text-white hover:bg-indigo-500"
+      class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-4 py-3 text-base font-medium text-white hover:bg-emerald-500"
     >
-      Book a demo
+      Solicitar demo
     </a>
   </nav>
 </div>

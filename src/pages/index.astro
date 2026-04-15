@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HowItWorks from "../sections/HowItWorks.astro";
+import ComoFunciona from "../sections/ComoFunciona.astro";
 import JustAskKlya from "../sections/JustAskKlya.astro";
 import Outcomes from "../sections/Outcomes.astro";
-import heroImage from "../assets/images/Klira-hero.png";
+import heroImage from "../assets/images/Talio-hero.png";
 ---
 
 <Layout>
@@ -11,20 +11,20 @@ import heroImage from "../assets/images/Klira-hero.png";
 		<section class="flex flex-col items-center justify-center gap-8 py-12 md:gap-20 md:py-20">
 			<div class="flex flex-col items-center justify-center gap-8 md:gap-10">
 				<div class="flex flex-col items-center justify-center gap-6 md:gap-8 leading-none">
-					<h1 class="text-balance text-center text-4xl leading-none text-zinc-900 sm:text-5xl md:text-6xl">
-						Your team's capacity, <br class="hidden md:inline" /> on demand.
+					<h1 class="text-balance text-center text-4xl leading-none text-slate-900 sm:text-5xl md:text-6xl">
+						Tu equipo evoluciona. <br class="hidden md:inline" /> Tus decisiones también deberían.
 					</h1>
-					<p class="max-w-2xl text-center text-lg text-zinc-500 md:text-xl">
-						Klira gives you and your teams a clear view of workload and capacity,
+					<p class="max-w-2xl text-center text-lg text-slate-500 md:text-xl">
+						Talio convierte las conversaciones, señales y el día a día de tu equipo
 						<br class="hidden md:inline" />
-						so every decision is backed by real data, not gut feel.
+						en información estructurada para tomar mejores decisiones de talento.
 					</p>
 				</div>
 				<a
 					href="mailto:hello@acalvet.com"
-					class="inline-flex rounded-full bg-indigo-600 px-8 py-4 text-base font-medium text-white hover:bg-indigo-500"
+					class="inline-flex rounded-full bg-emerald-600 px-8 py-4 text-base font-medium text-white hover:bg-emerald-500"
 				>
-					Book a demo
+					Solicitar demo
 				</a>
 			</div>
 			<div
@@ -35,7 +35,7 @@ import heroImage from "../assets/images/Klira-hero.png";
 					src={heroImage.src}
 					width={heroImage.width}
 					height={heroImage.height}
-					alt="Klira"
+					alt="Talio"
 					class="h-auto w-full rounded-lg md:rounded-2xl"
 					loading="eager"
 					decoding="async"
@@ -47,21 +47,19 @@ import heroImage from "../assets/images/Klira-hero.png";
 			id="introduction"
 			class="mx-auto grid w-full max-w-7xl grid-cols-1 items-start gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-16"
 		>
-			<h2 class="text-left text-3xl leading-tight text-zinc-900 md:text-4xl">
-				Know what your team can actually <br class="hidden md:inline" /> handle before you commit.
+			<h2 class="text-left text-3xl leading-tight text-slate-900 md:text-4xl">
+				Conoce a tu equipo antes de tomar <br class="hidden md:inline" /> la siguiente decisión.
 			</h2>
 			<div class="flex flex-col items-start justify-center gap-4">
-				<p class="text-lg leading-relaxed text-zinc-500 md:text-xl">
-					Service teams make commitment decisions every day. <br class="hidden md:inline" />
-					Rarely with the full picture.
+				<p class="text-lg leading-relaxed text-slate-500 md:text-xl">
+					Los managers toman decisiones críticas sobre personas cada semana. Raramente con toda la información.
 				</p>
-				<p class="text-lg leading-relaxed text-zinc-800 md:text-xl">
-					Klira makes that picture available instantly, <br class="hidden md:inline" />
-					before the decision is made.
+				<p class="text-lg leading-relaxed text-slate-800 md:text-xl">
+					Talio estructura esa información y la hace visible antes de que tengas que actuar.
 				</p>
 			</div>
 		</section>
-		<HowItWorks />
+		<ComoFunciona />
 		<JustAskKlya />
 		<Outcomes />
 	</div>

@@ -1,0 +1,182 @@
+---
+import "swiper/css";
+import "swiper/css/pagination";
+
+const steps = [
+	{
+		title: "Captura la señal",
+		body: "Inputs del día a día: feedback, motivación, logros, bloqueos.",
+	},
+	{
+		title: "Añade contexto",
+		body: "Las señales se agrupan y organizan por persona y equipo.",
+	},
+	{
+		title: "Identifica patrones",
+		body: "Se identifican tendencias y cambios a lo largo del tiempo.",
+	},
+	{
+		title: "Genera insights",
+		body: "Se detectan riesgos y oportunidades antes de que escalen.",
+	},
+	{
+		title: "Acciona con confianza",
+		body: "Toma decisiones de talento con claridad y sin reactividad.",
+	},
+];
+---
+
+<section
+	id="onboarding"
+	class="w-full py-8 md:py-16"
+	aria-labelledby="how-it-works-heading"
+>
+	<div class="mx-auto max-w-7xl px-4">
+		<div class="flex flex-col items-start justify-center gap-2 text-left">
+			<p class="text-sm font-medium text-emerald-600">Cómo funciona</p>
+			<h2 id="how-it-works-heading" class="text-3xl text-slate-900 text-left md:text-4xl">
+				De la intuición a la decisión con datos.
+			</h2>
+		</div>
+	</div>
+
+	<!--
+		Strip is full viewport width; slide widths follow the content column (cqw).
+		JS sets slidesOffsetBefore/After to the column insets so slides peek on both sides when swiping.
+	-->
+	<div
+		class="how-it-works-carousel mx-auto mt-10 flex w-full max-w-7xl flex-col gap-6 px-4 md:mt-12 md:gap-10"
+	>
+		<div class="como-funciona-slides-ref w-full min-w-0">
+			<div class="ml-[calc(50%-50vw)] w-screen max-w-[100vw] min-w-0">
+				<div class="swiper how-it-works-swiper w-full min-w-0">
+					<div class="swiper-wrapper">
+						{
+							steps.map((step, i) => (
+								<div class="swiper-slide h-auto">
+									<article class="flex h-full flex-col gap-5">
+										<div
+											class="aspect-4/5 w-full shrink-0 rounded-2xl bg-slate-50"
+											aria-hidden="true"
+										/>
+										<div class="flex flex-col gap-2 md:px-0">
+											<h3 class="text-lg text-slate-900">{step.title}</h3>
+											<p class="text-base text-slate-500">{step.body}</p>
+										</div>
+									</article>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			class="how-it-works-pagination swiper-pagination relative! mt-0! flex justify-center max-md:px-4"
+		/>
+	</div>
+</section>
+
+<style is:global>
+	/* Width reference for desktop slide sizing (three cards = content column width) */
+	.como-funciona-slides-ref {
+		container-type: inline-size;
+		container-name: como-funciona;
+	}
+
+	@media (min-width: 768px) {
+		.como-funciona-slides-ref .how-it-works-swiper .swiper-slide {
+			/* 3 slides + 2× spaceBetween (20px) within the content column */
+			width: calc((100cqw - 40px) / 3);
+		}
+	}
+
+	/* Same dots on mobile and desktop (pagination lives outside .how-it-works-swiper) */
+	.how-it-works-pagination .swiper-pagination-bullet {
+		background: rgb(148 163 184);
+		opacity: 1;
+	}
+	.how-it-works-pagination .swiper-pagination-bullet-active {
+		background: rgb(5 150 105);
+	}
+
+	/*
+	 * Mobile: match content column width (main px-4 + max-w-7xl inner px-4 = 4rem total inset).
+	 * centeredSlides + this width centers the active slide on the screen with equal peek of neighbours.
+	 */
+	@media (max-width: 767px) {
+		.how-it-works-swiper .swiper-slide {
+			width: calc(100vw - 4rem);
+		}
+	}
+</style>
+
+<script>
+	import type { Swiper as SwiperClass } from "swiper";
+	import Swiper from "swiper";
+	import { Pagination } from "swiper/modules";
+
+	function initComoFuncionaSwiper() {
+		const el = document.querySelector<HTMLElement>(".how-it-works-swiper");
+		if (!el || el.dataset.swiperInitialized === "true") return;
+
+		const wrap = el.closest<HTMLElement>(".how-it-works-carousel");
+		const paginationEl = wrap?.querySelector<HTMLElement>(".how-it-works-pagination");
+		const column =
+			wrap?.querySelector<HTMLElement>(".como-funciona-slides-ref") ?? null;
+		if (!paginationEl || !column) return;
+
+		const swiper = new Swiper(el, {
+			modules: [Pagination],
+			// Mobile: active slide centered in viewport; width matches site content (see CSS)
+			centeredSlides: true,
+			slidesPerView: "auto",
+			spaceBetween: 16,
+			slidesOffsetBefore: 0,
+			slidesOffsetAfter: 0,
+			pagination: {
+				el: paginationEl,
+				clickable: true,
+			},
+			watchOverflow: true,
+			breakpoints: {
+				768: {
+					centeredSlides: false,
+					slidesPerView: "auto",
+					spaceBetween: 20,
+					pagination: {
+						clickable: true,
+					},
+					allowTouchMove: true,
+					grabCursor: true,
+				},
+			},
+		});
+
+		function syncColumnOffsets(sw: SwiperClass, col: HTMLElement) {
+			if (!window.matchMedia("(min-width: 768px)").matches) {
+				sw.params.slidesOffsetBefore = 0;
+				sw.params.slidesOffsetAfter = 0;
+				sw.update();
+				return;
+			}
+			const r = col.getBoundingClientRect();
+			sw.params.slidesOffsetBefore = r.left;
+			sw.params.slidesOffsetAfter = window.innerWidth - r.right;
+			sw.update();
+		}
+
+		const runSync = () => syncColumnOffsets(swiper, column);
+		runSync();
+		requestAnimationFrame(() => requestAnimationFrame(runSync));
+
+		window.addEventListener("resize", runSync);
+		const ro = new ResizeObserver(runSync);
+		ro.observe(column);
+
+		el.dataset.swiperInitialized = "true";
+	}
+
+	initComoFuncionaSwiper();
+	document.addEventListener("astro:page-load", initComoFuncionaSwiper);
+</script>
