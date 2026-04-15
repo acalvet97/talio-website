@@ -1,0 +1,95 @@
+---
+const withoutItems = [
+	"Commitments made on gut feel",
+	"Overload spotted too late",
+	"Too much work, no clear priority",
+	'Every "yes" is a gamble',
+];
+
+const withItems = [
+	"Decisions backed by real data",
+	"Problems visible before they happen",
+	"Always know what to focus on next",
+	'Every "yes" is a conscious choice',
+];
+---
+
+<section class="w-full py-8 md:py-16" aria-labelledby="outcomes-heading">
+	<div class="mx-auto max-w-7xl px-4">
+		<div class="flex flex-col items-center justify-center gap-2 text-center">
+			<p class="text-sm font-medium text-indigo-600">Outcomes</p>
+			<h2 id="outcomes-heading" class="text-3xl text-zinc-900 md:text-4xl">
+				Stop reacting. Start deciding.
+			</h2>
+		</div>
+
+		<div
+			class="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-5 md:flex-row"
+		>
+			<div
+				class="flex min-w-0 flex-1 flex-col gap-8 rounded-2xl bg-zinc-50 p-8"
+			>
+				<h3 class="text-2xl font-medium text-zinc-900">Without Klira</h3>
+				<ul class="flex flex-col gap-5">
+					{
+						withoutItems.map((text) => (
+							<li class="flex gap-3">
+								<span class="mt-0.5 shrink-0 text-red-500" aria-hidden="true">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="size-6"
+									>
+										<circle cx="12" cy="12" r="10" />
+										<path d="m15 9-6 6" />
+										<path d="m9 9 6 6" />
+									</svg>
+								</span>
+								<span class="text-xl font-normal text-zinc-500">{text}</span>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div
+				class="flex min-w-0 flex-1 flex-col gap-8 rounded-2xl bg-zinc-50 p-8"
+			>
+				<h3 class="text-2xl font-medium text-zinc-900">With Klira</h3>
+				<ul class="flex flex-col gap-5">
+					{
+						withItems.map((text) => (
+							<li class="flex gap-3">
+								<span class="mt-0.5 shrink-0 text-green-600" aria-hidden="true">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="size-6"
+									>
+										<circle cx="12" cy="12" r="10" />
+										<path d="m9 12 2 2 4-4" />
+									</svg>
+								</span>
+								<span class="text-xl font-normal text-zinc-800">{text}</span>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
